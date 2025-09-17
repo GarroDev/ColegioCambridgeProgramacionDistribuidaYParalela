@@ -1,0 +1,16 @@
+REPORTE DE ÁREAS Y EMPLEADOS
+============================================================
+Generado: 2025-09-17 18:20:03
+
+Área: Polisas
+  Sin empleados asignados
+
+Área: Preventa
+  - ID: 1, Nombre: Juan Estiven, Edad: 23, Tipo: Profesor (Planta - Ninguna), Oficina: PreventaAgogo
+
+Área: Seguros
+  Sin empleados asignados
+
+============================================================
+Total de áreas: 3
+Total de empleados: 1
