@@ -59,4 +59,4 @@ def inicializar_bd():
     conn.commit()
     cursor.close()
     conn.close()
-    print("✅ Base de datos inicializada correctamente")
+    print(" Base de datos inicializada correctamente")
