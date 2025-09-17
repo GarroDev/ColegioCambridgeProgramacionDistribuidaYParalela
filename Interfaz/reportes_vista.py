@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from tkinter import ttk, messagebox
 from datetime import datetime
@@ -52,7 +53,7 @@ class ReportesVista:
         frame_botones = ttk.Frame(self.parent, style="Frame.TFrame")
         frame_botones.pack(fill=tk.X, padx=20, pady=10)
 
-        # 🔹 Ahora exporta en TXT en lugar de actualizar
+        # 🔹 Exportar TXT en carpeta Descargas
         ttk.Button(frame_botones, text="Exportar TXT", command=self.exportar_txt, style="BotonPrincipal.TButton").pack(side=tk.LEFT, padx=5)
         ttk.Button(frame_botones, text="Volver", command=self.volver_callback, style="BotonPrincipal.TButton").pack(side=tk.RIGHT, padx=5)
 
@@ -96,13 +97,17 @@ class ReportesVista:
 
     def exportar_txt(self):
         """
-        Exporta el reporte en un archivo TXT
+        Exporta el reporte en un archivo TXT en la carpeta Descargas del usuario
         """
         fecha_hora = datetime.now().strftime("%Y%m%d_%H%M%S")
         nombre_archivo = f"reporte_{fecha_hora}.txt"
 
+        # Ruta a la carpeta Descargas del usuario
+        carpeta_descargas = os.path.join(os.path.expanduser("~"), "Downloads")
+        ruta_completa = os.path.join(carpeta_descargas, nombre_archivo)
+
         try:
-            with open(nombre_archivo, "w", encoding="utf-8") as f:
+            with open(ruta_completa, "w", encoding="utf-8") as f:
                 f.write("REPORTE DE ÁREAS Y EMPLEADOS\n")
                 f.write("="*60 + "\n")
                 f.write(f"Generado: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
@@ -123,7 +128,13 @@ class ReportesVista:
                             elif tipo == "Administrativo":
                                 tipo = f"{tipo} ({persona.get('puesto','')})"
 
-                            f.write(f"  - ID: {persona['id']}, Nombre: {persona.get('nombre','')} {persona.get('apellido','')}, Edad: {persona.get('edad','')}, Tipo: {tipo}, Oficina: {persona['oficina']}\n")
+                            f.write(
+                                f"  - ID: {persona['id']}, "
+                                f"Nombre: {persona.get('nombre','')} {persona.get('apellido','')}, "
+                                f"Edad: {persona.get('edad','')}, "
+                                f"Tipo: {tipo}, "
+                                f"Oficina: {persona['oficina']}\n"
+                            )
                         total_empleados += len(empleados)
                     else:
                         f.write("  Sin empleados asignados\n")
@@ -133,7 +144,7 @@ class ReportesVista:
                 f.write(f"Total de áreas: {len(areas)}\n")
                 f.write(f"Total de empleados: {total_empleados}\n")
 
-            messagebox.showinfo("Éxito", f"Reporte exportado como {nombre_archivo}")
+            messagebox.showinfo("Éxito", f"Reporte exportado en Descargas como:\n{ruta_completa}")
 
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo exportar el reporte: {str(e)}")
