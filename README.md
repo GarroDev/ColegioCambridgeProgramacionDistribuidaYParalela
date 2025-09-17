@@ -1,3 +1,3 @@
 ## POR:
-# Cristian Garro Sabogak
-# Juan Jose Meneses
+Cristian Garro Sabogal
+Juan Jose Meneses
